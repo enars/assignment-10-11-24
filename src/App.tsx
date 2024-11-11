@@ -5,6 +5,12 @@ import { OrderPanelProvider } from "./context/OrderPanelContext";
 import Instruments from "./components/Instruments";
 import BuyAndSell from "./components/BuyAndSell";
 
+/** TODO
+ * implement put, create, delete
+ * handle api errors
+ * add design
+ */
+
 const OrderPanel = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
