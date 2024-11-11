@@ -1,10 +1,21 @@
+import styled from "styled-components";
+import OrderDetails from "./components/OrderDetails";
 import Orders from "./components/Orders";
+
+const OrderPanel = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+`;
 
 function App() {
   return (
-    <>
-      <Orders />
-    </>
+    <OrderPanelProvider>
+      <OrderPanel>
+        <Orders />
+        <OrderDetails />
+      </OrderPanel>
+    </OrderPanelProvider>
   );
 }
 

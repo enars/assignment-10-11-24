@@ -49,11 +49,11 @@ const Orders = () => {
 
   return (
     <OrderContainer>
-      <h1>Orders</h1>
+      <h2>Orders</h2>
       <OrderTable>
         <thead>
           <tr>
-            <TableHeader>Instrument ID</TableHeader>
+            <TableHeader>Instrument</TableHeader>
             <TableHeader>Amounts</TableHeader>
             <TableHeader>Price</TableHeader>
             <TableHeader>Action</TableHeader>
