@@ -1,5 +1,11 @@
+import Orders from "./components/Orders";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Orders />
+    </>
+  );
 }
 
 export default App;
