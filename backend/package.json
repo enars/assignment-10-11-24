@@ -1,0 +1,15 @@
+{
+  "name": "carnegie-apptest",
+  "version": "1.0.0",
+  "description": "Carnegie Tech intervjuvuppgift",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": "https://dev.azure.com/carnegieinvestmentbank/CarnegieIT/_git/carnegie-apptest",
+  "author": "Team Client - Carnegie Tech",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.19.2"
+  }
+}
