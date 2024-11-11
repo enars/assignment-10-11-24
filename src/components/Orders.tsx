@@ -20,8 +20,8 @@ const OrderTable = styled.table`
 
 const TableHeader = styled.th`
   border-bottom: 1px solid #ddd;
-  padding: 4px;
   text-align: left;
+  padding: 4px;
 `;
 
 const Orders = () => {
