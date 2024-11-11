@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { Order } from "../types/Order";
 import styled from "styled-components";
-import OrderRow from "./OrderRow";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
+import OrderRow from "./OrderRow";
 
 const OrderContainer = styled.div`
   display: flex;
@@ -26,7 +24,7 @@ const TableHeader = styled.th`
 `;
 
 const Orders = () => {
-  const { orders } = useOrderPanelContext();
+  const { orders, setSelectedOrder } = useOrderPanelContext();
 
   return (
     <OrderContainer>
@@ -44,7 +42,11 @@ const Orders = () => {
         </thead>
         <tbody>
           {orders.map((order) => (
-            <OrderRow key={order.id} order={order} />
+            <OrderRow
+              key={order.id}
+              setSelectedOrder={setSelectedOrder}
+              order={order}
+            />
           ))}
         </tbody>
       </OrderTable>

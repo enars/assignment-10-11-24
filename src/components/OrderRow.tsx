@@ -11,9 +11,19 @@ const TableCell = styled.td`
   padding: 6px;
 `;
 
-const OrderRow = ({ order }: { order: Order }) => {
+const OrderRow = ({
+  order,
+  setSelectedOrder,
+}: {
+  order: Order;
+  setSelectedOrder: (order: Order) => void;
+}) => {
+  const handleSelectOrder = () => {
+    setSelectedOrder(order);
+  };
+
   return (
-    <TableRow key={order.id}>
+    <TableRow onClick={handleSelectOrder} key={order.id}>
       <TableCell>{order.instrumentId}</TableCell>
       <TableCell>{order.amount}</TableCell>
       <TableCell>{order.price}</TableCell>

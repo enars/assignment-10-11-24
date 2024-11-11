@@ -4,15 +4,23 @@ import { Order } from "../types/Order";
 type OrderPanelContextType = {
   orders: Order[];
   setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+  selectedOrder: Order | null;
+  setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
 };
 
-const OrderPanelContext = createContext<OrderPanelContextType | null>(null);
+const defaultOrderPanelContext = {
+  orders: [],
+  setOrders: () => {},
+  selectedOrder: null,
+  setSelectedOrder: () => {},
+};
+
+const OrderPanelContext = createContext<OrderPanelContextType>(
+  defaultOrderPanelContext
+);
 
 export const useOrderPanelContext = () => {
-  const context = useContext(OrderPanelContext);
-  if (context !== null) {
-    return context;
-  }
+  return useContext(OrderPanelContext);
 };
 
 export const OrderPanelProvider = ({
@@ -21,6 +29,9 @@ export const OrderPanelProvider = ({
   children: React.ReactNode;
 }) => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  console.log(selectedOrder);
 
   useEffect(() => {
     fetch(`api/orders`)
@@ -41,7 +52,9 @@ export const OrderPanelProvider = ({
   }, []);
 
   return (
-    <OrderPanelContext.Provider value={{ orders, setOrders }}>
+    <OrderPanelContext.Provider
+      value={{ orders, setOrders, selectedOrder, setSelectedOrder }}
+    >
       {children}
     </OrderPanelContext.Provider>
   );
