@@ -2,6 +2,7 @@ import styled from "styled-components";
 import OrderDetails from "./components/OrderDetails";
 import Orders from "./components/Orders";
 import { OrderPanelProvider } from "./context/OrderPanelContext";
+import Instruments from "./components/Instruments";
 
 const OrderPanel = styled.div`
   display: grid;
@@ -15,6 +16,7 @@ function App() {
       <OrderPanel>
         <Orders />
         <OrderDetails />
+        <Instruments />
       </OrderPanel>
     </OrderPanelProvider>
   );
