@@ -1,15 +1,5 @@
-import styled from "styled-components";
 import { Order } from "../types/Order";
-
-const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: #f3f3f3;
-  }
-`;
-
-const TableCell = styled.td`
-  padding: 6px;
-`;
+import { TableCell, TableRow } from "./shared/Table";
 
 const OrderRow = ({
   order,

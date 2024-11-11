@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { Instrument } from "../types/Instrument";
 import { Order } from "../types/Order";
 
 type OrderPanelContextType = {
   orders: Order[];
-  setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+  instruments: Instrument[];
   selectedOrder: Order | null;
   setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
 };
 
 const defaultOrderPanelContext = {
   orders: [],
-  setOrders: () => {},
+  instruments: [],
   selectedOrder: null,
   setSelectedOrder: () => {},
 };
@@ -29,6 +30,7 @@ export const OrderPanelProvider = ({
   children: React.ReactNode;
 }) => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [instruments, setInstruments] = useState<Instrument[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   console.log(selectedOrder);
@@ -49,11 +51,19 @@ export const OrderPanelProvider = ({
         setOrders(ordersNewestFirst);
       })
       .catch((error) => console.error(error));
+
+    fetch(`api/instruments`)
+      .then((res) => res.json())
+      .then((data) => {
+        const instruments = data.items;
+        setInstruments(instruments);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   return (
     <OrderPanelContext.Provider
-      value={{ orders, setOrders, selectedOrder, setSelectedOrder }}
+      value={{ orders, instruments, selectedOrder, setSelectedOrder }}
     >
       {children}
     </OrderPanelContext.Provider>
