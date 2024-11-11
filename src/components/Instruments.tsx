@@ -13,7 +13,7 @@ const InstrumentsContainer = styled.div`
 `;
 
 const Instruments = () => {
-  const { instruments } = useOrderPanelContext();
+  const { instruments, setSelectedInstrument } = useOrderPanelContext();
 
   return (
     <InstrumentsContainer>
@@ -27,7 +27,11 @@ const Instruments = () => {
         </thead>
         <tbody>
           {instruments.map((instrument) => (
-            <InstrumentRow key={instrument.id} instrument={instrument} />
+            <InstrumentRow
+              key={instrument.id}
+              setSelectedInstrument={setSelectedInstrument}
+              instrument={instrument}
+            />
           ))}
         </tbody>
       </Table>

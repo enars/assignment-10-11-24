@@ -1,21 +1,6 @@
-import styled from "styled-components";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
-
-const DetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  border: 1px solid #ddd;
-  height: 100%;
-  border-radius: 4px;
-`;
-
-const Button = styled.button`
-  padding: 6px;
-  margin: 6px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-`;
+import { Button } from "./shared/Button";
+import { Container } from "./shared/Layout";
 
 const OrderDetails = () => {
   const { selectedOrder } = useOrderPanelContext();
@@ -29,7 +14,7 @@ const OrderDetails = () => {
   };
 
   return (
-    <DetailsContainer>
+    <Container>
       <h2>Order Details</h2>
       {selectedOrder && (
         <div>
@@ -43,7 +28,7 @@ const OrderDetails = () => {
           <Button onClick={handleEditOrder}>Edito order</Button>
         </div>
       )}
-    </DetailsContainer>
+    </Container>
   );
 };
 

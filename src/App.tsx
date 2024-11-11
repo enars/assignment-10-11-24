@@ -3,6 +3,7 @@ import OrderDetails from "./components/OrderDetails";
 import Orders from "./components/Orders";
 import { OrderPanelProvider } from "./context/OrderPanelContext";
 import Instruments from "./components/Instruments";
+import BuyAndSell from "./components/BuyAndSell";
 
 const OrderPanel = styled.div`
   display: grid;
@@ -17,6 +18,7 @@ function App() {
         <Orders />
         <OrderDetails />
         <Instruments />
+        <BuyAndSell />
       </OrderPanel>
     </OrderPanelProvider>
   );
