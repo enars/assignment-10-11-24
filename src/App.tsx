@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import OrderDetails from "./components/OrderDetails";
 import Orders from "./components/Orders";
+import { OrderPanelProvider } from "./context/OrderPanelContext";
 
 const OrderPanel = styled.div`
   display: grid;
