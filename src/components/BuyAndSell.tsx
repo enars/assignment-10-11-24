@@ -1,12 +1,54 @@
+import styled from "styled-components";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
 import { Button } from "./shared/Button";
 import { Container } from "./shared/Layout";
+import { useState } from "react";
+import { OrderAction } from "../types/Order";
+
+const FormRow = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const BuyAndSell = () => {
-  const { selectedInstrument } = useOrderPanelContext();
+  const { selectedInstrument, fetchOrders } = useOrderPanelContext();
+  const [amount, setAmount] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [statusResponse, setstatusResponse] = useState<string>("");
 
   const handleBuy = () => {
-    //TODO
+    if (!selectedInstrument) {
+      setstatusResponse("No instrument selected");
+      return;
+    }
+    if (!amount || !price) {
+      setstatusResponse("Amount or price cannot be empty");
+      return;
+    }
+
+    const order = {
+      instrumentId: selectedInstrument?.id,
+      amount: Number(amount),
+      price: Number(price),
+      action: OrderAction.BUY,
+    };
+
+    fetch(`api/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // setOrders((prevOrders) => [data, ...prevOrders]);
+        fetchOrders();
+        setstatusResponse("Order created successfully");
+      })
+      .catch((error) => {
+        setstatusResponse(error.message);
+      });
   };
 
   const handleSell = () => {
@@ -18,11 +60,22 @@ const BuyAndSell = () => {
       <h2>Order panel</h2>
       {selectedInstrument && (
         <div>
-          <p>Instrument: {selectedInstrument.id}</p>
-          <p>Amount: {selectedInstrument.ticker}</p>
-          <p>Price: {selectedInstrument.name}</p>
-          <Button onClick={handleBuy}>Purchase</Button>
+          <span>
+            {`${selectedInstrument.name} (${selectedInstrument.ticker})`}
+          </span>
+          <FormRow>
+            <label>Amount</label>
+            <input onChange={(e) => setAmount(e.target.value)} />
+          </FormRow>
+          <FormRow>
+            <label>price</label>
+            <input onChange={(e) => setPrice(e.target.value)} />
+          </FormRow>
+
+          <Button onClick={handleBuy}>Buy</Button>
           <Button onClick={handleSell}>Sell</Button>
+
+          {statusResponse && <div>{statusResponse}</div>}
         </div>
       )}
     </Container>

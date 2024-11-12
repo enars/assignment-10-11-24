@@ -4,6 +4,7 @@ import { Order } from "../types/Order";
 
 type OrderPanelContextType = {
   orders: Order[];
+  fetchOrders: () => void;
   instruments: Instrument[];
   selectedOrder: Order | null;
   setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
@@ -15,6 +16,7 @@ type OrderPanelContextType = {
 
 const defaultOrderPanelContext = {
   orders: [],
+  fetchOrders: () => {},
   instruments: [],
   selectedOrder: null,
   setSelectedOrder: () => {},
@@ -41,7 +43,14 @@ export const OrderPanelProvider = ({
   const [selectedInstrument, setSelectedInstrument] =
     useState<Instrument | null>(null);
 
+  const [fetchOrderTrigger, setFetchOrderTrigger] = useState(false);
+
+  const fetchOrders = () => {
+    setFetchOrderTrigger((prev) => !prev);
+  };
+
   useEffect(() => {
+    console.log("asd");
     fetch(`api/orders`)
       .then((res) => res.json())
       .then((data) => {
@@ -57,7 +66,9 @@ export const OrderPanelProvider = ({
         setOrders(ordersNewestFirst);
       })
       .catch((error) => console.error(error));
+  }, [fetchOrderTrigger]);
 
+  useEffect(() => {
     fetch(`api/instruments`)
       .then((res) => res.json())
       .then((data) => {
@@ -71,6 +82,7 @@ export const OrderPanelProvider = ({
     <OrderPanelContext.Provider
       value={{
         orders,
+        fetchOrders,
         instruments,
         selectedOrder,
         setSelectedOrder,
