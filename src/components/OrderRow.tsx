@@ -18,8 +18,6 @@ const OrderRow = ({
       <TableCell>{order.amount}</TableCell>
       <TableCell>{order.price}</TableCell>
       <TableCell>{order.action}</TableCell>
-      <TableCell>{order.createdAt.toLocaleString()}</TableCell>
-      <TableCell>{order.updatedAt.toLocaleString()}</TableCell>
     </TableRow>
   );
 };

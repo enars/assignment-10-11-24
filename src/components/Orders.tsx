@@ -25,8 +25,6 @@ const Orders = () => {
             <TableHeader>Amounts</TableHeader>
             <TableHeader>Price</TableHeader>
             <TableHeader>Action</TableHeader>
-            <TableHeader>Created At</TableHeader>
-            <TableHeader>Updated At</TableHeader>
           </tr>
         </thead>
         <tbody>

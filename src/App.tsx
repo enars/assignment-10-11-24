@@ -6,7 +6,6 @@ import Instruments from "./components/Instruments";
 import BuyAndSell from "./components/BuyAndSell";
 
 /** TODO
- * handle api errors
  * add design
  */
 
