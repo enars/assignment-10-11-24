@@ -1,14 +1,8 @@
-import styled from "styled-components";
-import { useOrderPanelContext } from "../context/OrderPanelContext";
-import { Button } from "./shared/Button";
-import { Container } from "./shared/Layout";
 import { useState } from "react";
+import { useOrderPanelContext } from "../context/OrderPanelContext";
 import { OrderAction } from "../types/Order";
-
-const FormRow = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { Button } from "./shared/Button";
+import { Container, FormRow } from "./shared/Layout";
 
 const BuyAndSell = () => {
   const { selectedInstrument, fetchOrders } = useOrderPanelContext();

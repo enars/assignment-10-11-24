@@ -8,3 +8,8 @@ export const Container = styled.div`
   height: 100%;
   border-radius: 4px;
 `;
+
+export const FormRow = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
