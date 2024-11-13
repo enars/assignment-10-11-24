@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Instrument } from "../types/Instrument";
 import { Order } from "../types/Order";
+import useApi from "../api/useApi";
 
 type OrderPanelContextType = {
   orders: Order[];
-  fetchOrders: () => void;
+  refreshOrders: () => void;
   instruments: Instrument[];
   selectedOrder: Order | null;
   setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
@@ -16,7 +17,7 @@ type OrderPanelContextType = {
 
 const defaultOrderPanelContext = {
   orders: [],
-  fetchOrders: () => {},
+  refreshOrders: () => {},
   instruments: [],
   selectedOrder: null,
   setSelectedOrder: () => {},
@@ -43,46 +44,48 @@ export const OrderPanelProvider = ({
   const [selectedInstrument, setSelectedInstrument] =
     useState<Instrument | null>(null);
 
-  const [fetchOrderTrigger, setFetchOrderTrigger] = useState(false);
+  const { fetchOrders, fetchInstruments } = useApi();
 
-  const fetchOrders = () => {
-    setFetchOrderTrigger((prev) => !prev);
+  useEffect(() => {
+    setInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const refreshOrders = async () => {
+    const orders = await fetchOrders();
+    const ordersWithInstruments = insertOrderInstruments(orders, instruments);
+    setOrders(ordersWithInstruments);
   };
 
-  useEffect(() => {
-    console.log("asd");
-    fetch(`api/orders`)
-      .then((res) => res.json())
-      .then((data) => {
-        const ordersWithDates = data.items.map((order: Order) => ({
-          ...order,
-          createdAt: new Date(order.createdAt),
-          updatedAt: new Date(order.updatedAt),
-        }));
-        const ordersNewestFirst = ordersWithDates.sort(
-          (a: Order, b: Order) => b.createdAt.getTime() - a.createdAt.getTime()
-        );
+  const insertOrderInstruments = (
+    orders: Order[],
+    instruments: Instrument[]
+  ) => {
+    return orders.map((order) => {
+      const instrument = instruments.find(
+        (instrument) => instrument.id === order.instrumentId
+      );
+      return {
+        ...order,
+        instrumentTicker: instrument?.ticker || "",
+      };
+    });
+  };
 
-        setOrders(ordersNewestFirst);
-      })
-      .catch((error) => console.error(error));
-  }, [fetchOrderTrigger]);
+  const setInitialData = async () => {
+    const orders = await fetchOrders();
+    const instruments = await fetchInstruments();
 
-  useEffect(() => {
-    fetch(`api/instruments`)
-      .then((res) => res.json())
-      .then((data) => {
-        const instruments = data.items;
-        setInstruments(instruments);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+    const ordersWithInstruments = insertOrderInstruments(orders, instruments);
+    setOrders(ordersWithInstruments);
+    setInstruments(instruments);
+  };
 
   return (
     <OrderPanelContext.Provider
       value={{
         orders,
-        fetchOrders,
+        refreshOrders,
         instruments,
         selectedOrder,
         setSelectedOrder,

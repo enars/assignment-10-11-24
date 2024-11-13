@@ -5,7 +5,7 @@ import { Button } from "./shared/Button";
 import { Container, FormRow } from "./shared/Layout";
 
 const BuyAndSell = () => {
-  const { selectedInstrument, fetchOrders } = useOrderPanelContext();
+  const { selectedInstrument, refreshOrders } = useOrderPanelContext();
   const [amount, setAmount] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [statusResponse, setstatusResponse] = useState<string>("");
@@ -43,7 +43,7 @@ const BuyAndSell = () => {
       })
       .then(() => {
         // setOrders((prevOrders) => [data, ...prevOrders]);
-        fetchOrders();
+        refreshOrders();
         setstatusResponse("Order created successfully");
       })
       .catch((error) => {

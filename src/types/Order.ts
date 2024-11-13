@@ -1,6 +1,7 @@
 export type Order = {
   id: number;
   instrumentId: number;
+  instrumentTicker: string;
   amount: number;
   price: number;
   action: keyof typeof OrderAction;

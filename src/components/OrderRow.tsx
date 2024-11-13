@@ -14,7 +14,7 @@ const OrderRow = ({
 
   return (
     <TableRow onClick={handleSelectOrder} key={order.id}>
-      <TableCell>{order.instrumentId}</TableCell>
+      <TableCell>{order.instrumentTicker}</TableCell>
       <TableCell>{order.amount}</TableCell>
       <TableCell>{order.price}</TableCell>
       <TableCell>{order.action}</TableCell>

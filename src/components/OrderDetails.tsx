@@ -4,7 +4,7 @@ import { Button } from "./shared/Button";
 import { Container, FormRow } from "./shared/Layout";
 
 const OrderDetails = () => {
-  const { fetchOrders, selectedOrder, setSelectedOrder } =
+  const { refreshOrders, selectedOrder, setSelectedOrder } =
     useOrderPanelContext();
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
@@ -26,7 +26,7 @@ const OrderDetails = () => {
       method: "DELETE",
     }).then(() => {
       setStatusMessage("Order deleted successfully");
-      fetchOrders();
+      refreshOrders();
       setSelectedOrder(null);
     });
   };
@@ -58,7 +58,7 @@ const OrderDetails = () => {
       })
       .then(() => {
         setStatusMessage("Order edited successfully");
-        fetchOrders();
+        refreshOrders();
       })
       .catch((error) => {
         setStatusMessage(error.statusText);
