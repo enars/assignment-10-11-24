@@ -8,7 +8,7 @@ export type Order = {
   updatedAt: Date;
 };
 
-export const OrderAction = {
-  BUY: "buy",
-  SELL: "sell",
-} as const;
+export enum OrderAction {
+  BUY = "buy",
+  SELL = "sell",
+}

@@ -16,11 +16,12 @@ const BuyAndSell = () => {
   const [price, setPrice] = useState<string>("");
   const [statusResponse, setstatusResponse] = useState<string>("");
 
-  const handleBuy = () => {
+  const performOrderAction = (action: OrderAction) => {
     if (!selectedInstrument) {
       setstatusResponse("No instrument selected");
       return;
     }
+
     if (!amount || !price) {
       setstatusResponse("Amount or price cannot be empty");
       return;
@@ -30,7 +31,7 @@ const BuyAndSell = () => {
       instrumentId: selectedInstrument?.id,
       amount: Number(amount),
       price: Number(price),
-      action: OrderAction.BUY,
+      action,
     };
 
     fetch(`api/orders`, {
@@ -40,19 +41,20 @@ const BuyAndSell = () => {
       },
       body: JSON.stringify(order),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res);
+      })
       .then(() => {
         // setOrders((prevOrders) => [data, ...prevOrders]);
         fetchOrders();
         setstatusResponse("Order created successfully");
       })
       .catch((error) => {
-        setstatusResponse(error.message);
+        setstatusResponse(error.statusText);
       });
-  };
-
-  const handleSell = () => {
-    //TODO
   };
 
   return (
@@ -72,8 +74,12 @@ const BuyAndSell = () => {
             <input onChange={(e) => setPrice(e.target.value)} />
           </FormRow>
 
-          <Button onClick={handleBuy}>Buy</Button>
-          <Button onClick={handleSell}>Sell</Button>
+          <Button onClick={() => performOrderAction(OrderAction.BUY)}>
+            Buy
+          </Button>
+          <Button onClick={() => performOrderAction(OrderAction.SELL)}>
+            Sell
+          </Button>
 
           {statusResponse && <div>{statusResponse}</div>}
         </div>
