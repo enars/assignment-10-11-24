@@ -1,22 +1,13 @@
-import styled from "styled-components";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
 import InstrumentRow from "./InstrumentRow";
+import { Container } from "./shared/Layout";
 import { Table, TableHeader } from "./shared/Table";
-
-const InstrumentsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  border: 1px solid #ddd;
-  height: 100%;
-  border-radius: 4px;
-`;
 
 const Instruments = () => {
   const { instruments, setSelectedInstrument } = useOrderPanelContext();
 
   return (
-    <InstrumentsContainer>
+    <Container>
       <h2>Instruments</h2>
       <Table>
         <thead>
@@ -35,7 +26,7 @@ const Instruments = () => {
           ))}
         </tbody>
       </Table>
-    </InstrumentsContainer>
+    </Container>
   );
 };
 

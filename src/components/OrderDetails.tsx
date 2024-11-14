@@ -82,8 +82,12 @@ const OrderDetails = () => {
           <p>Action: {selectedOrder.action}</p>
           <p>Created At: {selectedOrder.createdAt.toLocaleString()}</p>
           <p>Updated At: {selectedOrder.updatedAt.toLocaleString()}</p>
-          <Button onClick={handleDeleteOrder}>Delete order</Button>
-          <Button onClick={handleEditOrder}>Edit order</Button>
+          <Button color="lightpink" onClick={handleDeleteOrder}>
+            Delete order
+          </Button>
+          <Button color="lightskyblue" onClick={handleEditOrder}>
+            Edit order
+          </Button>
           <p>{statusMessage}</p>
         </div>
       )}

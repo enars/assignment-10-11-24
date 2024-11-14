@@ -1,22 +1,13 @@
-import styled from "styled-components";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
 import OrderRow from "./OrderRow";
+import { Container } from "./shared/Layout";
 import { Table, TableHeader } from "./shared/Table";
-
-const OrderContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  border: 1px solid #ddd;
-  height: 100%;
-  border-radius: 4px;
-`;
 
 const Orders = () => {
   const { orders, setSelectedOrder } = useOrderPanelContext();
 
   return (
-    <OrderContainer>
+    <Container>
       <h2>Orders</h2>
       <Table>
         <thead>
@@ -37,7 +28,7 @@ const Orders = () => {
           ))}
         </tbody>
       </Table>
-    </OrderContainer>
+    </Container>
   );
 };
 

@@ -5,24 +5,54 @@ import { OrderPanelProvider } from "./context/OrderPanelContext";
 import Instruments from "./components/Instruments";
 import BuyAndSell from "./components/BuyAndSell";
 
-/** TODO
- * add design
- */
-
 const OrderPanel = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  height: 100%;
+  grid-template-areas:
+    "Orders OrderDetails"
+    "Instruments BuyAndSell";
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-rows: min-content min-content;
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "Orders"
+      "OrderDetails"
+      "BuyAndSell"
+      "Instruments";
+    overflow-y: scroll;
+  }
+`;
+
+const GridItem = styled.div<{
+  gridArea: string;
+}>`
+  grid-area: ${(p) => p.gridArea};
+  height: 100%;
 `;
 
 function App() {
   return (
     <OrderPanelProvider>
       <OrderPanel>
-        <Orders />
-        <OrderDetails />
-        <Instruments />
-        <BuyAndSell />
+        <GridItem gridArea="Orders">
+          <Orders />
+        </GridItem>
+        <GridItem gridArea="Instruments">
+          <Instruments />
+        </GridItem>
+        <GridItem gridArea="OrderDetails">
+          <OrderDetails />
+        </GridItem>
+
+        <GridItem gridArea="BuyAndSell">
+          <BuyAndSell />
+        </GridItem>
       </OrderPanel>
     </OrderPanelProvider>
   );

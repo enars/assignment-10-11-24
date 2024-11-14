@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useOrderPanelContext } from "../context/OrderPanelContext";
 import { OrderAction } from "../types/Order";
 import { Button } from "./shared/Button";
-import { Container, FormRow } from "./shared/Layout";
+import { Container, Flexbox, FormRow } from "./shared/Layout";
 
 const BuyAndSell = () => {
   const { selectedInstrument, refreshOrders } = useOrderPanelContext();
@@ -55,7 +55,7 @@ const BuyAndSell = () => {
     <Container>
       <h2>Order panel</h2>
       {selectedInstrument && (
-        <div>
+        <Flexbox flexDirection={"column"}>
           <span>
             {`${selectedInstrument.name} (${selectedInstrument.ticker})`}
           </span>
@@ -68,15 +68,23 @@ const BuyAndSell = () => {
             <input onChange={(e) => setPrice(e.target.value)} />
           </FormRow>
 
-          <Button onClick={() => performOrderAction(OrderAction.BUY)}>
-            Buy
-          </Button>
-          <Button onClick={() => performOrderAction(OrderAction.SELL)}>
-            Sell
-          </Button>
+          <Flexbox flexDirection={"row"}>
+            <Button
+              color="lightgreen"
+              onClick={() => performOrderAction(OrderAction.BUY)}
+            >
+              Buy
+            </Button>
+            <Button
+              color="lightskyblue"
+              onClick={() => performOrderAction(OrderAction.SELL)}
+            >
+              Sell
+            </Button>
+          </Flexbox>
 
           {statusResponse && <div>{statusResponse}</div>}
-        </div>
+        </Flexbox>
       )}
     </Container>
   );
