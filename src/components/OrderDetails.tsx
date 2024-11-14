@@ -37,6 +37,12 @@ const OrderDetails = () => {
       return;
     }
 
+    // Basic validation
+    if (!amount || !price || isNaN(Number(amount)) || isNaN(Number(price))) {
+      setStatusMessage("Amount or price cannot be empty");
+      return;
+    }
+
     const updatedOrder = {
       ...selectedOrder,
       amount: Number(amount),

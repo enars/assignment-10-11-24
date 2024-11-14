@@ -2,6 +2,7 @@ import { Order } from "../types/Order";
 
 const NUMBER_OF_RETRIES = 3;
 
+// Only used for fetching data, I have handled update, delete and create requests in their respective components
 const useApi = () => {
   const fetchInstruments = async () => {
     try {

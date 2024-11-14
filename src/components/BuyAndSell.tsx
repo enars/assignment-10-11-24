@@ -16,11 +16,13 @@ const BuyAndSell = () => {
       return;
     }
 
-    if (!amount || !price) {
+    // Basic validation
+    if (!amount || !price || isNaN(Number(amount)) || isNaN(Number(price))) {
       setstatusResponse("Amount or price cannot be empty");
       return;
     }
 
+    // Cast to number
     const order = {
       instrumentId: selectedInstrument?.id,
       amount: Number(amount),
@@ -42,7 +44,6 @@ const BuyAndSell = () => {
         return Promise.reject(res);
       })
       .then(() => {
-        // setOrders((prevOrders) => [data, ...prevOrders]);
         refreshOrders();
         setstatusResponse("Order created successfully");
       })
